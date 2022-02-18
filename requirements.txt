@@ -1,0 +1,7 @@
+telethon
+hachoir
+keyboard
+selenium
+pygetwindow
+parse-torrent-name
+persiantools
