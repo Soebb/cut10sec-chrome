@@ -7,7 +7,7 @@ import PTN
 import keyboard as kb
 import pygetwindow as gw
 import selenium.webdriver as webdriver
-from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
@@ -16,9 +16,8 @@ API_ID = " "
 API_HASH = " "
 BOT_NAME = "cuter-RoBot"
 
-# system path to geckodriver.exe (Firefox driver)
+# system path to chromedriver.exe
 driver_path = r""
-Firefox_version = "97.0.1"
 
 # namasha upload option
 upload2namasha_option = True
@@ -30,8 +29,6 @@ password = ""
 win = gw.getActiveWindow()
 
 firefox_win = win #this will be a dynamic variable to store the Firefox window whenever be opened
-if upload2namasha_option:
-    os.environ['MOZ_FORCE_DISABLE_E105'] = Firefox_version
 
 
 previous_cut_time = '02:00:04'
@@ -168,7 +165,10 @@ async def callback(event):
                     firefox_win.close()
                 except:
                     pass
-            driver=webdriver.Firefox(service=Service(driver_path), options=webdriver.FirefoxOptions())
+            ser=Service(driver_path)
+            options = webdriver.ChromeOptions()
+            options.add_experimental_option('excludeSwitches', ['enable-logging'])
+            driver=webdriver.Chrome(service=ser, options=options)
             driver.get(url)
             firefox_win = gw.getActiveWindow()
             driver.find_element(By.ID, "UserName").send_keys(username)
