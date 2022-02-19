@@ -29,6 +29,9 @@ password = ""
 win = gw.getActiveWindow()
 
 firefox_win = win #this will be a dynamic variable to store the Firefox window whenever be opened
+if upload2namasha_option:
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 
 previous_cut_time = '02:00:04'
@@ -160,14 +163,14 @@ async def callback(event):
         end_sec = sum(x * int(t) for x, t in zip([1, 60, 3600], reversed(end.split(":"))))
         os.system(f'''ffmpeg -ss {start} -i "{input}" -to {end} -c copy -y "C:/dlmacvin/1aa/videos/{name.replace(ext, '-0'+ext)}"''')
         if upload2namasha_option:
+            """
             if firefox_win != win:
                 try:
                     firefox_win.close()
                 except:
                     pass
+            """
             ser=Service(driver_path)
-            options = webdriver.ChromeOptions()
-            options.add_experimental_option('excludeSwitches', ['enable-logging'])
             driver=webdriver.Chrome(service=ser, options=options)
             driver.get(url)
             firefox_win = gw.getActiveWindow()
@@ -186,7 +189,7 @@ async def callback(event):
             if upload2namasha_option:
                 driver.execute_script('window.open("https://www.namasha.com/upload")')
                 driver.switch_to.window(len(driver.window_handles))
-                chrome_win.activate()
+                firefox_win.activate()
                 driver.find_element(By.XPATH, "//span[@class='btn btn-primary mt-4 px-3 py-2']").click()
                 await asyncio.sleep(3)
                 kb.write("C:\\dlmacvin\\1aa\\videos\\"+cut_name)
