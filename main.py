@@ -198,7 +198,7 @@ async def callback(event):
                 driver.find_element(By.XPATH, '//input[@name="Title"]').send_keys(cut_name)
 
         await process_msg.delete()
-        info=PTN.parse(name.replace(ext, ''))
+        info=PTN.parse(name.replace(ext, '').replace(' - ', ' ').replace(' _ ', ' ').replace('-', ' ').replace('_', ' ').replace('  ', ' '))
         episode = str(info['episode'])
         episode = episode.split('0', 1)[1] if episode.startswith('0') else episode
         title = info['title']
