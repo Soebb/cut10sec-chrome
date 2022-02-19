@@ -17,7 +17,7 @@ API_HASH = " "
 BOT_NAME = "cuter-RoBot"
 
 # system path to chromedriver.exe
-driver_path = r""
+driver_path = r"C:\chromedriver_win32\chromedriver.exe"
 
 # namasha upload option
 upload2namasha_option = True
